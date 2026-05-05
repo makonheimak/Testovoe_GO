@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package audit.v1;
+
+option go_package = "config-audit/api/gen/audit/v1;auditv1";
+
+service AuditService {
+  rpc Analyze(AnalyzeRequest) returns (AnalyzeResponse);
+}
+
+message AnalyzeRequest {
+  bytes config = 1;
+  string filename = 2;
+}
+
+message AnalyzeResponse {
+  repeated Finding findings = 1;
+}
+
+message Finding {
+  string rule_id = 1;
+  string severity = 2;
+  string message = 3;
+  string recommendation = 4;
+  string path = 5;
+  string source = 6;
+}
